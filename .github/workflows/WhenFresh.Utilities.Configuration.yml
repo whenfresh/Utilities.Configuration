@@ -1,4 +1,4 @@
-name: WhenFresh.Utilities.Core
+name: WhenFresh.Utilities.Configuration
 on:
   workflow_dispatch:
   push:
