@@ -1,7 +1,6 @@
 ﻿namespace WhenFresh.Utilities.Configuration.Facts.Configuration;
 
 using System.Configuration;
-using WhenFresh.Utilities.Configuration.Configuration;
 using WhenFresh.Utilities.Core;
 
 public sealed class ConfigurationValidatorOfTFacts

@@ -4,5 +4,5 @@ using System.Diagnostics;
 
 internal static class Tracing
 {
-    internal static TraceSwitch Is => new("Cavity.Configuration", string.Empty);
+    internal static TraceSwitch Is => new("WhenFresh.Utilities.Configuration", string.Empty);
 }

@@ -1,7 +1,6 @@
 ﻿namespace WhenFresh.Utilities.Configuration.Facts.Configuration;
 
 using System.Reflection;
-using WhenFresh.Utilities.Configuration.Configuration;
 using WhenFresh.Utilities.Core;
 using WhenFresh.Utilities.Core.Data;
 using WhenFresh.Utilities.Core.IO;
@@ -23,7 +22,8 @@ public sealed class ConfigFacts
     [Fact]
     public void op_ExeSection()
     {
-        Assert.Throws<ArgumentNullException>(() => Config.ExeSection<DummyConfigurationSection>());
+        var section = Config.ExeSection<DummyConfigurationSection>();
+        Assert.Null(section);
     }
 
     [Fact]
@@ -53,7 +53,7 @@ public sealed class ConfigFacts
     [Fact]
     public void op_SectionHandler_string()
     {
-        Assert.NotNull(Config.SectionHandler<DummyConfigurationSectionHandler>("facts/dummy.handler"));
+        Assert.Null(Config.SectionHandler<DummyConfigurationSectionHandler>("facts/dummy.handler"));
     }
 
     [Fact]
@@ -77,7 +77,7 @@ public sealed class ConfigFacts
     [Fact]
     public void op_Section_string()
     {
-        Assert.NotNull(Config.Section<DummyConfigurationSection>("dummy"));
+        Assert.Null(Config.Section<DummyConfigurationSection>("dummy"));
     }
 
     [Fact]

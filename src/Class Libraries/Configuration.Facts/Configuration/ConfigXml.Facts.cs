@@ -1,6 +1,5 @@
 ﻿namespace WhenFresh.Utilities.Configuration.Facts.Configuration;
 
-using WhenFresh.Utilities.Configuration.Configuration;
 using WhenFresh.Utilities.Core;
 using WhenFresh.Utilities.Core.Data;
 using WhenFresh.Utilities.Core.IO;

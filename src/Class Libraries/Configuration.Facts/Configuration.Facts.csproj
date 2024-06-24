@@ -24,4 +24,9 @@
     <ItemGroup>
         <ProjectReference Include="..\Configuration\Configuration.csproj"/>
     </ItemGroup>
+    <ItemGroup>
+      <None Update="paths.config">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </None>
+    </ItemGroup>
 </Project>

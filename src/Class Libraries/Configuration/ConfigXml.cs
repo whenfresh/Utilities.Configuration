@@ -1,4 +1,4 @@
-﻿namespace WhenFresh.Utilities.Configuration.Configuration;
+﻿namespace WhenFresh.Utilities.Configuration;
 
 using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;

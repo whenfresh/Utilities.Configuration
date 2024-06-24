@@ -1,4 +1,4 @@
-﻿namespace WhenFresh.Utilities.Configuration.Facts.Configuration;
+﻿namespace WhenFresh.Utilities.Configuration.Facts;
 
 using System.Configuration;
 using System.Xml;

@@ -1,4 +1,4 @@
-﻿namespace WhenFresh.Utilities.Configuration.Configuration;
+﻿namespace WhenFresh.Utilities.Configuration;
 
 using System.Configuration;
 
@@ -18,21 +18,9 @@ public class PathConfigurationSection : ConfigurationSection
         if (0 == name.Length)
             throw new ArgumentOutOfRangeException("name");
 
-#if NET20
-            foreach (var item in Directories)
-            {
-                if (item.Name.Equals(name, StringComparison.Ordinal))
-                {
-                    return item.Value;
-                }
-            }
-
-            return null;
-#else
         return (from item in Directories
                 where item.Name.Equals(name, StringComparison.Ordinal)
                 select item.Value).FirstOrDefault();
-#endif
     }
 
     public FileInfo File(string name)
@@ -43,20 +31,8 @@ public class PathConfigurationSection : ConfigurationSection
         if (0 == name.Length)
             throw new ArgumentOutOfRangeException("name");
 
-#if NET20
-            foreach (var item in Files)
-            {
-                if (item.Name.Equals(name, StringComparison.Ordinal))
-                {
-                    return item.Value;
-                }
-            }
-
-            return null;
-#else
         return (from item in Files
                 where item.Name.Equals(name, StringComparison.Ordinal)
                 select item.Value).FirstOrDefault();
-#endif
     }
 }

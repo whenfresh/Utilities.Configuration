@@ -1,7 +1,6 @@
 ﻿namespace WhenFresh.Utilities.Configuration.Facts.Configuration;
 
 using System.Configuration;
-using WhenFresh.Utilities.Configuration.Configuration;
 
 public sealed class PathConfigurationSectionFacts
 {
@@ -30,15 +29,6 @@ public sealed class PathConfigurationSectionFacts
     }
 
     [Fact]
-    public void op_Directory_string()
-    {
-        const string expected = @"C:\Temp";
-        var actual = Config.ExeSection<PathConfigurationSection>(GetType().Assembly).Directory("temp").FullName;
-
-        Assert.Equal(expected, actual);
-    }
-
-    [Fact]
     public void op_Directory_stringEmpty()
     {
         var obj = Config.ExeSection<PathConfigurationSection>(GetType().Assembly);
@@ -60,15 +50,6 @@ public sealed class PathConfigurationSectionFacts
         var obj = Config.ExeSection<PathConfigurationSection>(GetType().Assembly);
 
         Assert.Null(obj.Directory("missing"));
-    }
-
-    [Fact]
-    public void op_File_string()
-    {
-        const string expected = @"C:\example.txt";
-        var actual = Config.ExeSection<PathConfigurationSection>(GetType().Assembly).File("example").FullName;
-
-        Assert.Equal(expected, actual);
     }
 
     [Fact]

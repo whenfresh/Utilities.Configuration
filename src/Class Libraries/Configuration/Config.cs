@@ -1,4 +1,4 @@
-﻿namespace WhenFresh.Utilities.Configuration.Configuration;
+﻿namespace WhenFresh.Utilities.Configuration;
 
 using System.Collections;
 using System.Configuration;
@@ -41,11 +41,7 @@ public static class Config
 
         var fileMap = new ExeConfigurationFileMap
                           {
-#if NET20
-                    ExeConfigFilename = assembly.Location + ".config"
-#else
                               ExeConfigFilename = assembly.Location.Append(".config")
-#endif
                           };
 
         var config = ConfigurationManager.OpenMappedExeConfiguration(fileMap, ConfigurationUserLevel.None);
@@ -177,21 +173,6 @@ public static class Config
 #endif
     {
         Trace.WriteIf(Tracing.Is.TraceVerbose, string.Empty);
-#if NET20
-            foreach (var item in sections)
-            {
-                var section = item as T;
-                if (null == section)
-                {
-                    continue;
-                }
-
-                return section;
-            }
-
-            return default(T);
-#else
         return sections.OfType<T>().FirstOrDefault();
-#endif
     }
 }
