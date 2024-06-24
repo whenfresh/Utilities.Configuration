@@ -1,30 +1,18 @@
-﻿namespace Cavity.Collections
+﻿namespace WhenFresh.Utilities.Configuration.Collections;
+
+using System.Xml.Serialization;
+
+[XmlRoot("add")]
+public sealed class FileItem : PathItem,
+                               IEquatable<FileItem>
 {
-    using System;
-    using System.IO;
-    using System.Xml.Serialization;
+    [XmlIgnore] public FileInfo Info => new(Value);
 
-    [XmlRoot("add")]
-    public sealed class FileItem : PathItem,
-                                   IEquatable<FileItem>
+    public bool Equals(FileItem other)
     {
-        [XmlIgnore]
-        public FileInfo Info
-        {
-            get
-            {
-                return new FileInfo(Value);
-            }
-        }
+        if (null == other)
+            return false;
 
-        public bool Equals(FileItem other)
-        {
-            if (null == other)
-            {
-                return false;
-            }
-
-            return Name == other.Name && Value == other.Value;
-        }
+        return Name == other.Name && Value == other.Value;
     }
 }

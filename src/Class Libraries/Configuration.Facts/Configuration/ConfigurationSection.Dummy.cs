@@ -1,8 +1,7 @@
-﻿namespace Cavity.Configuration
-{
-    using System.Configuration;
+﻿namespace WhenFresh.Utilities.Configuration.Facts.Configuration;
 
-    public sealed class DummyConfigurationSection : ConfigurationSection
-    {
-    }
+using System.Configuration;
+
+public sealed class DummyConfigurationSection : ConfigurationSection
+{
 }

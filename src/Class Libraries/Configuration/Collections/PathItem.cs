@@ -1,22 +1,20 @@
-﻿namespace Cavity.Collections
+﻿namespace WhenFresh.Utilities.Configuration.Collections;
+
+using System.Xml.Serialization;
+using WhenFresh.Utilities.Core;
+
+public abstract class PathItem
 {
-    using System.Xml.Serialization;
+    [XmlAttribute("name")] public string Name { get; set; }
 
-    public abstract class PathItem
+    [XmlAttribute("value")] public string Value { get; set; }
+
+    public override string ToString()
     {
-        [XmlAttribute("name")]
-        public string Name { get; set; }
-
-        [XmlAttribute("value")]
-        public string Value { get; set; }
-
-        public override string ToString()
-        {
 #if NET20
             return StringExtensionMethods.FormatWith("{0}: {1}", Name, Value);
 #else
-            return "{0}: {1}".FormatWith(Name, Value);
+        return "{0}: {1}".FormatWith(Name, Value);
 #endif
-        }
     }
 }

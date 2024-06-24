@@ -1,159 +1,155 @@
-﻿namespace Cavity.Configuration
+﻿namespace WhenFresh.Utilities.Configuration.Facts.Configuration;
+
+using System.Configuration;
+using WhenFresh.Utilities.Configuration.Configuration;
+
+public sealed class AddRemoveClearConfigurationElementCollectionOfTFacts
 {
-    using System;
-    using System.Configuration;
-    using System.IO;
-    using System.Linq;
-    using Xunit;
-
-    public sealed class AddRemoveClearConfigurationElementCollectionOfTFacts
+    [Fact]
+    public void a_definition()
     {
-        [Fact]
-        public void a_definition()
-        {
-            Assert.True(new TypeExpectations<AddRemoveClearConfigurationElementCollection<DirectoryInfo>>()
-                            .DerivesFrom<ConfigurationElementCollection>()
-                            .IsConcreteClass()
-                            .IsSealed()
-                            .HasDefaultConstructor()
-                            .IsNotDecorated()
-                            .Result);
-        }
+        Assert.True(new TypeExpectations<AddRemoveClearConfigurationElementCollection<DirectoryInfo>>()
+                    .DerivesFrom<ConfigurationElementCollection>()
+                    .IsConcreteClass()
+                    .IsSealed()
+                    .HasDefaultConstructor()
+                    .IsNotDecorated()
+                    .Result);
+    }
 
-        [Fact]
-        public void ctor()
-        {
-            Assert.NotNull(new AddRemoveClearConfigurationElementCollection<DirectoryInfo>());
-        }
+    [Fact]
+    public void ctor()
+    {
+        Assert.NotNull(new AddRemoveClearConfigurationElementCollection<DirectoryInfo>());
+    }
 
-        [Fact]
-        public void op_Add_NameValueConfigurationElement()
-        {
-            var element = new NameValueConfigurationElement<DirectoryInfo>("C", new DirectoryInfo(@"C:\"));
-            var obj = new AddRemoveClearConfigurationElementCollection<DirectoryInfo>
+    [Fact]
+    public void op_Add_NameValueConfigurationElement()
+    {
+        var element = new NameValueConfigurationElement<DirectoryInfo>("C", new DirectoryInfo(@"C:\"));
+        var obj = new AddRemoveClearConfigurationElementCollection<DirectoryInfo>
+                      {
+                          element
+                      };
+
+        Assert.True(obj.Contains(element));
+    }
+
+    [Fact]
+    public void op_Add_NameValueConfigurationElementNull()
+    {
+        Assert.Throws<ArgumentNullException>(() => new AddRemoveClearConfigurationElementCollection<DirectoryInfo>().Add(null));
+    }
+
+    [Fact]
+    public void op_Add_string_T()
+    {
+        var obj = new AddRemoveClearConfigurationElementCollection<DirectoryInfo>
+                      {
                           {
-                              element
-                          };
+                              "C", new DirectoryInfo(@"C:\")
+                          }
+                      };
 
-            Assert.True(obj.Contains(element));
-        }
+        Assert.Equal("C", obj.First().Name);
+    }
 
-        [Fact]
-        public void op_Add_NameValueConfigurationElementNull()
-        {
-            Assert.Throws<ArgumentNullException>(() => new AddRemoveClearConfigurationElementCollection<DirectoryInfo>().Add(null));
-        }
+    [Fact]
+    public void op_Clear()
+    {
+        var obj = new AddRemoveClearConfigurationElementCollection<DirectoryInfo>
+                      {
+                          new("C", new DirectoryInfo(@"C:\"))
+                      };
 
-        [Fact]
-        public void op_Add_string_T()
-        {
-            var obj = new AddRemoveClearConfigurationElementCollection<DirectoryInfo>
-                          {
-                              {
-                                  "C", new DirectoryInfo(@"C:\")
-                              }
-                          };
+        Assert.NotEmpty(obj);
+        obj.Clear();
+        Assert.Empty(obj);
+    }
 
-            Assert.Equal("C", obj.First().Name);
-        }
+    [Fact]
+    public void op_Contains_NameValueConfigurationElement()
+    {
+        var element = new NameValueConfigurationElement<DirectoryInfo>("C", new DirectoryInfo(@"C:\"));
+        var obj = new AddRemoveClearConfigurationElementCollection<DirectoryInfo>
+                      {
+                          element
+                      };
 
-        [Fact]
-        public void op_Clear()
-        {
-            var obj = new AddRemoveClearConfigurationElementCollection<DirectoryInfo>
-                          {
-                              new NameValueConfigurationElement<DirectoryInfo>("C", new DirectoryInfo(@"C:\"))
-                          };
+        Assert.True(obj.Contains(element));
+    }
 
-            Assert.NotEmpty(obj);
-            obj.Clear();
-            Assert.Empty(obj);
-        }
+    [Fact]
+    public void op_CopyTo_NameValueConfigurationElement_int()
+    {
+        var expected = new NameValueConfigurationElement<DirectoryInfo>("C", new DirectoryInfo(@"C:\"));
+        var obj = new AddRemoveClearConfigurationElementCollection<DirectoryInfo>
+                      {
+                          expected,
+                          new("D", new DirectoryInfo(@"D:\"))
+                      };
 
-        [Fact]
-        public void op_Contains_NameValueConfigurationElement()
-        {
-            var element = new NameValueConfigurationElement<DirectoryInfo>("C", new DirectoryInfo(@"C:\"));
-            var obj = new AddRemoveClearConfigurationElementCollection<DirectoryInfo>
-                          {
-                              element
-                          };
+        var array = new NameValueConfigurationElement<DirectoryInfo>[obj.Count];
+        obj.CopyTo(array, 0);
 
-            Assert.True(obj.Contains(element));
-        }
+        var actual = array.First();
 
-        [Fact]
-        public void op_CopyTo_NameValueConfigurationElement_int()
-        {
-            var expected = new NameValueConfigurationElement<DirectoryInfo>("C", new DirectoryInfo(@"C:\"));
-            var obj = new AddRemoveClearConfigurationElementCollection<DirectoryInfo>
-                          {
-                              expected,
-                              new NameValueConfigurationElement<DirectoryInfo>("D", new DirectoryInfo(@"D:\"))
-                          };
+        Assert.Equal(expected, actual);
+    }
 
-            var array = new NameValueConfigurationElement<DirectoryInfo>[obj.Count];
-            obj.CopyTo(array, 0);
+    [Fact]
+    public void op_Remove_NameValueConfigurationElement()
+    {
+        var element = new NameValueConfigurationElement<DirectoryInfo>("C", new DirectoryInfo(@"C:\"));
+        var obj = new AddRemoveClearConfigurationElementCollection<DirectoryInfo>
+                      {
+                          new("D", new DirectoryInfo(@"D:\")),
+                          element
+                      };
 
-            var actual = array.First();
+        Assert.True(obj.Remove(element));
+        Assert.False(obj.Contains(element));
+    }
 
-            Assert.Equal(expected, actual);
-        }
+    [Fact]
+    public void op_Remove_NameValueConfigurationElement_whenEmpty()
+    {
+        var element = new NameValueConfigurationElement<DirectoryInfo>("C", new DirectoryInfo(@"C:\"));
+        var obj = new AddRemoveClearConfigurationElementCollection<DirectoryInfo>();
 
-        [Fact]
-        public void op_Remove_NameValueConfigurationElement()
-        {
-            var element = new NameValueConfigurationElement<DirectoryInfo>("C", new DirectoryInfo(@"C:\"));
-            var obj = new AddRemoveClearConfigurationElementCollection<DirectoryInfo>
-                          {
-                              new NameValueConfigurationElement<DirectoryInfo>("D", new DirectoryInfo(@"D:\")),
-                              element
-                          };
+        Assert.False(obj.Remove(element));
+    }
 
-            Assert.True(obj.Remove(element));
-            Assert.False(obj.Contains(element));
-        }
+    [Fact]
+    public void prop_CollectionType()
+    {
+        Assert.True(new PropertyExpectations<AddRemoveClearConfigurationElementCollection<DirectoryInfo>>(p => p.CollectionType)
+                    .TypeIs<ConfigurationElementCollectionType>()
+                    .IsNotDecorated()
+                    .Result);
+    }
 
-        [Fact]
-        public void op_Remove_NameValueConfigurationElement_whenEmpty()
-        {
-            var element = new NameValueConfigurationElement<DirectoryInfo>("C", new DirectoryInfo(@"C:\"));
-            var obj = new AddRemoveClearConfigurationElementCollection<DirectoryInfo>();
+    [Fact]
+    public void prop_CollectionType_get()
+    {
+        const ConfigurationElementCollectionType expected = ConfigurationElementCollectionType.AddRemoveClearMap;
+        var actual = new AddRemoveClearConfigurationElementCollection<DirectoryInfo>().CollectionType;
 
-            Assert.False(obj.Remove(element));
-        }
+        Assert.Equal(expected, actual);
+    }
 
-        [Fact]
-        public void prop_CollectionType()
-        {
-            Assert.True(new PropertyExpectations<AddRemoveClearConfigurationElementCollection<DirectoryInfo>>(p => p.CollectionType)
-                            .TypeIs<ConfigurationElementCollectionType>()
-                            .IsNotDecorated()
-                            .Result);
-        }
+    [Fact]
+    public void prop_IsReadOnly()
+    {
+        Assert.True(new PropertyExpectations<AddRemoveClearConfigurationElementCollection<DirectoryInfo>>(p => p.IsReadOnly)
+                    .TypeIs<bool>()
+                    .IsNotDecorated()
+                    .Result);
+    }
 
-        [Fact]
-        public void prop_CollectionType_get()
-        {
-            const ConfigurationElementCollectionType expected = ConfigurationElementCollectionType.AddRemoveClearMap;
-            var actual = new AddRemoveClearConfigurationElementCollection<DirectoryInfo>().CollectionType;
-
-            Assert.Equal(expected, actual);
-        }
-
-        [Fact]
-        public void prop_IsReadOnly()
-        {
-            Assert.True(new PropertyExpectations<AddRemoveClearConfigurationElementCollection<DirectoryInfo>>(p => p.IsReadOnly)
-                            .TypeIs<bool>()
-                            .IsNotDecorated()
-                            .Result);
-        }
-
-        [Fact]
-        public void prop_IsReadOnly_get()
-        {
-            Assert.False(new AddRemoveClearConfigurationElementCollection<DirectoryInfo>().IsReadOnly);
-        }
+    [Fact]
+    public void prop_IsReadOnly_get()
+    {
+        Assert.False(new AddRemoveClearConfigurationElementCollection<DirectoryInfo>().IsReadOnly);
     }
 }

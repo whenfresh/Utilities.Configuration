@@ -1,53 +1,40 @@
-﻿namespace Cavity.Configuration
+﻿namespace WhenFresh.Utilities.Configuration.Configuration;
+
+using System.Configuration;
+using System.Diagnostics;
+using WhenFresh.Utilities.Configuration.Diagnostics;
+
+public sealed class NameValueConfigurationElement<T> : ConfigurationElement
 {
-    using System.Configuration;
-    using System.Diagnostics;
-    using Cavity.Diagnostics;
-
-    public sealed class NameValueConfigurationElement<T> : ConfigurationElement
+    public NameValueConfigurationElement()
     {
-        public NameValueConfigurationElement()
-        {
-            Trace.WriteIf(Tracing.Is.TraceVerbose, string.Empty);
+        Trace.WriteIf(Tracing.Is.TraceVerbose, string.Empty);
 
-            Properties.Add(ConfigurationProperty<T>.Item("value"));
-        }
+        Properties.Add(ConfigurationProperty<T>.Item("value"));
+    }
 
-        public NameValueConfigurationElement(string name,
-                                             T value)
-            : this()
-        {
-            Trace.WriteIf(Tracing.Is.TraceVerbose, string.Empty);
+    public NameValueConfigurationElement(string name,
+                                         T value)
+        : this()
+    {
+        Trace.WriteIf(Tracing.Is.TraceVerbose, string.Empty);
 
-            Name = name;
-            Value = value;
-        }
+        Name = name;
+        Value = value;
+    }
 
-        [ConfigurationProperty("name", IsRequired = false)]
-        public string Name
-        {
-            get
-            {
-                return (string)this["name"];
-            }
+    [ConfigurationProperty("name", IsRequired = false)]
+    public string Name
+    {
+        get => (string)this["name"];
 
-            set
-            {
-                this["name"] = value;
-            }
-        }
+        set => this["name"] = value;
+    }
 
-        public T Value
-        {
-            get
-            {
-                return (T)this["value"];
-            }
+    public T Value
+    {
+        get => (T)this["value"];
 
-            set
-            {
-                this["value"] = value;
-            }
-        }
+        set => this["value"] = value;
     }
 }

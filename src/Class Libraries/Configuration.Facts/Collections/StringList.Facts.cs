@@ -1,209 +1,206 @@
-﻿namespace Cavity.Collections
+﻿namespace WhenFresh.Utilities.Configuration.Facts.Collections;
+
+using WhenFresh.Utilities.Configuration.Collections;
+using WhenFresh.Utilities.Configuration.Configuration;
+using WhenFresh.Utilities.Core;
+using WhenFresh.Utilities.Core.IO;
+using WhenFresh.Utilities.Core.Xml.XPath;
+
+public sealed class StringListFacts
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using Cavity.Configuration;
-    using Cavity.IO;
-    using Cavity.Xml.XPath;
-    using Xunit;
-
-    public sealed class StringListFacts
+    [Fact]
+    public void a_definition()
     {
-        [Fact]
-        public void a_definition()
+        Assert.True(new TypeExpectations<StringList>()
+                    .DerivesFrom<List<string>>()
+                    .IsConcreteClass()
+                    .IsUnsealed()
+                    .HasDefaultConstructor()
+                    .XmlRoot("list")
+                    .XmlSerializable()
+                    .Result);
+    }
+
+    [Fact]
+    public void config()
+    {
+        using (var temp = new TempDirectory())
         {
-            Assert.True(new TypeExpectations<StringList>()
-                            .DerivesFrom<List<string>>()
-                            .IsConcreteClass()
-                            .IsUnsealed()
-                            .HasDefaultConstructor()
-                            .XmlRoot("list")
-                            .XmlSerializable()
-                            .Result);
+            var file = temp.Info.ToFile("example.xml");
+            file.Create("<list><item>example</item></list>");
+
+            Assert.Equal("example", Config.Xml<StringList>(file).First());
         }
+    }
 
-        [Fact]
-        public void config()
-        {
-            using (var temp = new TempDirectory())
-            {
-                var file = temp.Info.ToFile("example.xml");
-                file.Create("<list><item>example</item></list>");
+    [Fact]
+    public void ctor()
+    {
+        Assert.NotNull(new StringList());
+    }
 
-                Assert.Equal("example", Config.Xml<StringList>(file).First());
-            }
-        }
+    [Fact]
+    public void op_AsEnumerable_ofString()
+    {
+        const string expected = "example";
+        var obj = new StringList
+                      {
+                          expected
+                      };
 
-        [Fact]
-        public void ctor()
-        {
-            Assert.NotNull(new StringList());
-        }
+        Assert.Equal(expected, obj.AsEnumerable().First());
+    }
 
-        [Fact]
-        public void op_AsEnumerable_ofString()
-        {
-            const string expected = "example";
-            var obj = new StringList
-                          {
-                              expected
-                          };
+    [Fact]
+    public void op_Equals_object()
+    {
+        var obj = new StringList
+                      {
+                          "example"
+                      };
 
-            Assert.Equal(expected, obj.AsEnumerable().First());
-        }
+        var comparand = new StringList
+                            {
+                                "example"
+                            };
 
-        [Fact]
-        public void op_Equals_object()
-        {
-            var obj = new StringList
-                          {
-                              "example"
-                          };
+        Assert.True(obj.Equals(comparand));
+    }
 
-            var comparand = new StringList
-                                {
-                                    "example"
-                                };
+    [Fact]
+    public void op_Equals_objectNull()
+    {
+        Assert.False(new StringList().Equals(null));
+    }
 
-            Assert.True(obj.Equals(comparand));
-        }
+    [Fact]
+    public void op_Equals_objectSame()
+    {
+        var obj = new StringList();
 
-        [Fact]
-        public void op_Equals_objectNull()
-        {
-            Assert.False(new StringList().Equals(null));
-        }
+        // ReSharper disable EqualExpressionComparison
+        Assert.True(obj.Equals(obj));
 
-        [Fact]
-        public void op_Equals_objectSame()
-        {
-            var obj = new StringList();
+        // ReSharper restore EqualExpressionComparison
+    }
 
-            // ReSharper disable EqualExpressionComparison
-            Assert.True(obj.Equals(obj));
+    [Fact]
+    public void op_Equals_object_whenFalse()
+    {
+        var obj = new StringList
+                      {
+                          "123"
+                      };
 
-            // ReSharper restore EqualExpressionComparison
-        }
+        var comparand = new StringList
+                            {
+                                "456"
+                            };
 
-        [Fact]
-        public void op_Equals_object_whenFalse()
-        {
-            var obj = new StringList
-                          {
-                              "123"
-                          };
+        Assert.False(obj.Equals(comparand));
+    }
 
-            var comparand = new StringList
-                                {
-                                    "456"
-                                };
+    [Fact]
+    public void op_GetHashCode()
+    {
+        var expected = string.Empty.GetHashCode();
+        var actual = new StringList().GetHashCode();
 
-            Assert.False(obj.Equals(comparand));
-        }
+        Assert.Equal(expected, actual);
+    }
 
-        [Fact]
-        public void op_GetHashCode()
-        {
-            var expected = string.Empty.GetHashCode();
-            var actual = new StringList().GetHashCode();
+    [Fact]
+    public void op_ToEnumerable_ofBoolean()
+    {
+        var obj = new StringList
+                      {
+                          "true"
+                      };
 
-            Assert.Equal(expected, actual);
-        }
+        Assert.True(obj.ToEnumerable<bool>().First());
+    }
 
-        [Fact]
-        public void op_ToEnumerable_ofBoolean()
-        {
-            var obj = new StringList
-                          {
-                              "true"
-                          };
+    [Fact]
+    public void op_ToEnumerable_ofDateTime()
+    {
+        var expected = DateTime.UtcNow;
+        var obj = new StringList
+                      {
+                          expected.ToXmlString()
+                      };
 
-            Assert.True(obj.ToEnumerable<bool>().First());
-        }
+        Assert.Equal(expected, obj.ToEnumerable<DateTime>().First().ToUniversalTime());
+    }
 
-        [Fact]
-        public void op_ToEnumerable_ofDateTime()
-        {
-            var expected = DateTime.UtcNow;
-            var obj = new StringList
-                          {
-                              expected.ToXmlString()
-                          };
+    [Fact]
+    public void op_ToEnumerable_ofInt32()
+    {
+        var obj = new StringList
+                      {
+                          "123"
+                      };
 
-            Assert.Equal(expected, obj.ToEnumerable<DateTime>().First().ToUniversalTime());
-        }
+        Assert.Equal(123, obj.ToEnumerable<int>().First());
+    }
 
-        [Fact]
-        public void op_ToEnumerable_ofInt32()
-        {
-            var obj = new StringList
-                          {
-                              "123"
-                          };
+    [Fact]
+    public void op_ToString()
+    {
+        var expected = string.Empty;
+        var actual = new StringList().ToString();
 
-            Assert.Equal(123, obj.ToEnumerable<int>().First());
-        }
+        Assert.Equal(expected, actual);
+    }
 
-        [Fact]
-        public void op_ToString()
-        {
-            var expected = string.Empty;
-            var actual = new StringList().ToString();
+    [Fact]
+    public void op_ToString_whenMultipleItems()
+    {
+        var expected = "123{0}456{0}".FormatWith(Environment.NewLine);
 
-            Assert.Equal(expected, actual);
-        }
+        var obj = new StringList
+                      {
+                          "123",
+                          "456"
+                      };
+        var actual = obj.ToString();
 
-        [Fact]
-        public void op_ToString_whenMultipleItems()
-        {
-            var expected = "123{0}456{0}".FormatWith(Environment.NewLine);
+        Assert.Equal(expected, actual);
+    }
 
-            var obj = new StringList
-                          {
-                              "123",
-                              "456"
-                          };
-            var actual = obj.ToString();
+    [Fact]
+    public void op_ToString_whenSingleItem()
+    {
+        var expected = "example" + Environment.NewLine;
 
-            Assert.Equal(expected, actual);
-        }
+        var obj = new StringList
+                      {
+                          "example"
+                      };
+        var actual = obj.ToString();
 
-        [Fact]
-        public void op_ToString_whenSingleItem()
-        {
-            var expected = "example" + Environment.NewLine;
+        Assert.Equal(expected, actual);
+    }
 
-            var obj = new StringList
-                          {
-                              "example"
-                          };
-            var actual = obj.ToString();
+    [Fact]
+    public void xml_deserialize()
+    {
+        var obj = ("<list>" +
+                   "<item>first</item>" +
+                   "<item>last</item>" +
+                   "</list>").XmlDeserialize<StringList>();
 
-            Assert.Equal(expected, actual);
-        }
+        Assert.Equal("first", obj.First());
+        Assert.Equal("last", obj.Last());
+    }
 
-        [Fact]
-        public void xml_deserialize()
-        {
-            var obj = ("<list>" +
-                       "<item>first</item>" +
-                       "<item>last</item>" +
-                       "</list>").XmlDeserialize<StringList>();
+    [Fact]
+    public void xml_serialize()
+    {
+        var obj = new StringList
+                      {
+                          "example"
+                      };
 
-            Assert.Equal("first", obj.First());
-            Assert.Equal("last", obj.Last());
-        }
-
-        [Fact]
-        public void xml_serialize()
-        {
-            var obj = new StringList
-                          {
-                              "example"
-                          };
-
-            Assert.True(obj.XmlSerialize().CreateNavigator().Evaluate<bool>("1=count(/list/item[text()='example'])"));
-        }
+        Assert.True(obj.XmlSerialize().CreateNavigator().Evaluate<bool>("1=count(/list/item[text()='example'])"));
     }
 }

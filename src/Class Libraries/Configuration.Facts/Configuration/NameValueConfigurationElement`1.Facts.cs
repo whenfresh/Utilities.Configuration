@@ -1,50 +1,50 @@
-﻿namespace Cavity.Configuration
+﻿namespace WhenFresh.Utilities.Configuration.Facts.Configuration;
+
+using System.Configuration;
+using WhenFresh.Utilities.Configuration.Configuration;
+using WhenFresh.Utilities.Core;
+
+public sealed class NameValueConfigurationElementOfTFacts
 {
-    using System.Configuration;
-    using Xunit;
-
-    public sealed class NameValueConfigurationElementOfTFacts
+    [Fact]
+    public void a_definition()
     {
-        [Fact]
-        public void a_definition()
-        {
-            Assert.True(new TypeExpectations<NameValueConfigurationElement<AbsoluteUri>>()
-                            .DerivesFrom<object>()
-                            .IsConcreteClass()
-                            .IsSealed()
-                            .HasDefaultConstructor()
-                            .IsNotDecorated()
-                            .Result);
-        }
+        Assert.True(new TypeExpectations<NameValueConfigurationElement<AbsoluteUri>>()
+                    .DerivesFrom<object>()
+                    .IsConcreteClass()
+                    .IsSealed()
+                    .HasDefaultConstructor()
+                    .IsNotDecorated()
+                    .Result);
+    }
 
-        [Fact]
-        public void ctor()
-        {
-            Assert.NotNull(new NameValueConfigurationElement<AbsoluteUri>());
-        }
+    [Fact]
+    public void ctor()
+    {
+        Assert.NotNull(new NameValueConfigurationElement<AbsoluteUri>());
+    }
 
-        [Fact]
-        public void ctor_string_T()
-        {
-            Assert.NotNull(new NameValueConfigurationElement<AbsoluteUri>("example", new AbsoluteUri("http://example.com/")));
-        }
+    [Fact]
+    public void ctor_string_T()
+    {
+        Assert.NotNull(new NameValueConfigurationElement<AbsoluteUri>("example", new AbsoluteUri("http://example.com/")));
+    }
 
-        [Fact]
-        public void prop_Name()
-        {
-            Assert.True(new PropertyExpectations<NameValueConfigurationElement<AbsoluteUri>>(p => p.Name)
-                            .IsAutoProperty(string.Empty)
-                            .IsDecoratedWith<ConfigurationPropertyAttribute>()
-                            .Result);
-        }
+    [Fact]
+    public void prop_Name()
+    {
+        Assert.True(new PropertyExpectations<NameValueConfigurationElement<AbsoluteUri>>(p => p.Name)
+                    .IsAutoProperty(string.Empty)
+                    .IsDecoratedWith<ConfigurationPropertyAttribute>()
+                    .Result);
+    }
 
-        [Fact]
-        public void prop_Value()
-        {
-            Assert.True(new PropertyExpectations<NameValueConfigurationElement<AbsoluteUri>>(p => p.Value)
-                            .IsAutoProperty<AbsoluteUri>()
-                            .IsNotDecorated()
-                            .Result);
-        }
+    [Fact]
+    public void prop_Value()
+    {
+        Assert.True(new PropertyExpectations<NameValueConfigurationElement<AbsoluteUri>>(p => p.Value)
+                    .IsAutoProperty<AbsoluteUri>()
+                    .IsNotDecorated()
+                    .Result);
     }
 }

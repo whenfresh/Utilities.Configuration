@@ -1,15 +1,8 @@
-﻿namespace Cavity.Diagnostics
-{
-    using System.Diagnostics;
+﻿namespace WhenFresh.Utilities.Configuration.Diagnostics;
 
-    internal static class Tracing
-    {
-        internal static TraceSwitch Is
-        {
-            get
-            {
-                return new TraceSwitch("Cavity.Configuration", string.Empty);
-            }
-        }
-    }
+using System.Diagnostics;
+
+internal static class Tracing
+{
+    internal static TraceSwitch Is => new("Cavity.Configuration", string.Empty);
 }

@@ -1,28 +1,24 @@
-﻿namespace Cavity.Configuration
+﻿namespace WhenFresh.Utilities.Configuration.Facts.Configuration;
+
+using System.Configuration;
+using System.Xml;
+
+public sealed class DummyConfigurationSectionHandler : IConfigurationSectionHandler
 {
-    using System;
-    using System.Configuration;
-    using System.Xml;
-
-    public sealed class DummyConfigurationSectionHandler : IConfigurationSectionHandler
+    object IConfigurationSectionHandler.Create(object parent,
+                                               object configContext,
+                                               XmlNode section)
     {
-        object IConfigurationSectionHandler.Create(object parent,
-                                                   object configContext,
-                                                   XmlNode section)
+        try
         {
-            try
-            {
-                if (null == section)
-                {
-                    throw new XmlException("The dummy section is not configured.");
-                }
+            if (null == section)
+                throw new XmlException("The dummy section is not configured.");
 
-                return new DummyConfigurationSectionHandler();
-            }
-            catch (Exception exception)
-            {
-                throw new ConfigurationErrorsException(exception.Message, exception, section);
-            }
+            return new DummyConfigurationSectionHandler();
+        }
+        catch (Exception exception)
+        {
+            throw new ConfigurationErrorsException(exception.Message, exception, section);
         }
     }
 }

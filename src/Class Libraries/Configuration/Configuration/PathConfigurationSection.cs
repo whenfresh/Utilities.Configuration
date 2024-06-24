@@ -1,44 +1,22 @@
-﻿namespace Cavity.Configuration
+﻿namespace WhenFresh.Utilities.Configuration.Configuration;
+
+using System.Configuration;
+
+public class PathConfigurationSection : ConfigurationSection
 {
-    using System;
-    using System.Configuration;
-    using System.IO;
-#if !NET20
-    using System.Linq;
+    [ConfigurationProperty("directories", IsRequired = false, IsDefaultCollection = true)]
+    public AddRemoveClearConfigurationElementCollection<DirectoryInfo> Directories => (AddRemoveClearConfigurationElementCollection<DirectoryInfo>)this["directories"];
 
-#endif
+    [ConfigurationProperty("files", IsRequired = false, IsDefaultCollection = true)]
+    public AddRemoveClearConfigurationElementCollection<FileInfo> Files => (AddRemoveClearConfigurationElementCollection<FileInfo>)this["files"];
 
-    public class PathConfigurationSection : ConfigurationSection
+    public DirectoryInfo Directory(string name)
     {
-        [ConfigurationProperty("directories", IsRequired = false, IsDefaultCollection = true)]
-        public AddRemoveClearConfigurationElementCollection<DirectoryInfo> Directories
-        {
-            get
-            {
-                return (AddRemoveClearConfigurationElementCollection<DirectoryInfo>)this["directories"];
-            }
-        }
+        if (null == name)
+            throw new ArgumentNullException("name");
 
-        [ConfigurationProperty("files", IsRequired = false, IsDefaultCollection = true)]
-        public AddRemoveClearConfigurationElementCollection<FileInfo> Files
-        {
-            get
-            {
-                return (AddRemoveClearConfigurationElementCollection<FileInfo>)this["files"];
-            }
-        }
-
-        public DirectoryInfo Directory(string name)
-        {
-            if (null == name)
-            {
-                throw new ArgumentNullException("name");
-            }
-
-            if (0 == name.Length)
-            {
-                throw new ArgumentOutOfRangeException("name");
-            }
+        if (0 == name.Length)
+            throw new ArgumentOutOfRangeException("name");
 
 #if NET20
             foreach (var item in Directories)
@@ -51,23 +29,19 @@
 
             return null;
 #else
-            return (from item in Directories
-                    where item.Name.Equals(name, StringComparison.Ordinal)
-                    select item.Value).FirstOrDefault();
+        return (from item in Directories
+                where item.Name.Equals(name, StringComparison.Ordinal)
+                select item.Value).FirstOrDefault();
 #endif
-        }
+    }
 
-        public FileInfo File(string name)
-        {
-            if (null == name)
-            {
-                throw new ArgumentNullException("name");
-            }
+    public FileInfo File(string name)
+    {
+        if (null == name)
+            throw new ArgumentNullException("name");
 
-            if (0 == name.Length)
-            {
-                throw new ArgumentOutOfRangeException("name");
-            }
+        if (0 == name.Length)
+            throw new ArgumentOutOfRangeException("name");
 
 #if NET20
             foreach (var item in Files)
@@ -80,10 +54,9 @@
 
             return null;
 #else
-            return (from item in Files
-                    where item.Name.Equals(name, StringComparison.Ordinal)
-                    select item.Value).FirstOrDefault();
+        return (from item in Files
+                where item.Name.Equals(name, StringComparison.Ordinal)
+                select item.Value).FirstOrDefault();
 #endif
-        }
     }
 }
