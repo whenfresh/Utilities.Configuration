@@ -1,7 +1,7 @@
 ﻿namespace WhenFresh.Utilities.Collections;
 
 using System.Xml.Serialization;
-using WhenFresh.Utilities.Core;
+using WhenFresh.Utilities;
 
 public abstract class PathItem
 {

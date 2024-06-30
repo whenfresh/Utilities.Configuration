@@ -1,6 +1,6 @@
 ﻿namespace WhenFresh.Utilities.Collections;
 
-using WhenFresh.Utilities.Core.IO;
+using WhenFresh.Utilities.IO;
 
 public sealed class FileItemFacts
 {

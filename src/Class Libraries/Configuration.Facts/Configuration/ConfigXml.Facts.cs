@@ -1,8 +1,8 @@
 ﻿namespace WhenFresh.Utilities.Configuration;
 
-using WhenFresh.Utilities.Core;
-using WhenFresh.Utilities.Core.Data;
-using WhenFresh.Utilities.Core.IO;
+using WhenFresh.Utilities;
+using WhenFresh.Utilities.Data;
+using WhenFresh.Utilities.IO;
 
 public sealed class ConfigXmlFacts
 {

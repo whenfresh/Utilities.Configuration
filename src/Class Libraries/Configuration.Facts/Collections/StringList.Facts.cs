@@ -1,9 +1,9 @@
 ﻿namespace WhenFresh.Utilities.Collections;
 
 using WhenFresh.Utilities.Configuration;
-using WhenFresh.Utilities.Core;
-using WhenFresh.Utilities.Core.IO;
-using WhenFresh.Utilities.Core.Xml.XPath;
+using WhenFresh.Utilities;
+using WhenFresh.Utilities.IO;
+using WhenFresh.Utilities.Xml.XPath;
 
 public sealed class StringListFacts
 {

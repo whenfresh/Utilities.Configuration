@@ -1,7 +1,7 @@
 ﻿namespace WhenFresh.Utilities.Collections;
 
 using System.Xml.Serialization;
-using WhenFresh.Utilities.Core.Collections.Generic;
+using WhenFresh.Utilities.Collections.Generic;
 #if !NET20
 #endif
 

@@ -3,7 +3,7 @@
 using System.ComponentModel;
 using System.Globalization;
 using Moq;
-using WhenFresh.Utilities.Core;
+using WhenFresh.Utilities;
 
 public sealed class ConfigurationConverterOfTFacts
 {

@@ -1,7 +1,7 @@
 ﻿namespace WhenFresh.Utilities.Collections;
 
-using WhenFresh.Utilities.Core.Collections.Generic;
-using WhenFresh.Utilities.Core.IO;
+using WhenFresh.Utilities.Collections.Generic;
+using WhenFresh.Utilities.IO;
 
 public sealed class FileCollectionFacts
 {

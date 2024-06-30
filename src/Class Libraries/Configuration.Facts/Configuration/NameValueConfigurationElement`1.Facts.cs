@@ -1,7 +1,7 @@
 ﻿namespace WhenFresh.Utilities.Configuration;
 
 using System.Configuration;
-using WhenFresh.Utilities.Core;
+using WhenFresh.Utilities;
 
 public sealed class NameValueConfigurationElementOfTFacts
 {

@@ -6,7 +6,7 @@ using System.Text;
 using System.Xml;
 using System.Xml.Schema;
 using System.Xml.Serialization;
-using WhenFresh.Utilities.Core;
+using WhenFresh.Utilities;
 #if !NET20
 #endif
 

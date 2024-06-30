@@ -4,7 +4,7 @@ using System.Xml;
 using System.Xml.Schema;
 using System.Xml.Serialization;
 using WhenFresh.Utilities.Collections;
-using WhenFresh.Utilities.Core.Xml;
+using WhenFresh.Utilities.Xml;
 
 [XmlRoot("paths")]
 public sealed class Paths : IXmlSerializable
