@@ -1,6 +1,5 @@
 ﻿namespace WhenFresh.Utilities.Configuration;
 
-using WhenFresh.Utilities;
 using WhenFresh.Utilities.Data;
 using WhenFresh.Utilities.IO;
 

@@ -3,9 +3,8 @@
 using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
 using System.Security.Permissions;
-using WhenFresh.Utilities;
-using WhenFresh.Utilities.IO;
 using WhenFresh.Utilities.Diagnostics;
+using WhenFresh.Utilities.IO;
 
 public class ConfigXml
 {

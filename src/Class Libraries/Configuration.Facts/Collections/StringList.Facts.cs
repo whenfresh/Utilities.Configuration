@@ -1,7 +1,6 @@
 ﻿namespace WhenFresh.Utilities.Collections;
 
 using WhenFresh.Utilities.Configuration;
-using WhenFresh.Utilities;
 using WhenFresh.Utilities.IO;
 using WhenFresh.Utilities.Xml.XPath;
 
