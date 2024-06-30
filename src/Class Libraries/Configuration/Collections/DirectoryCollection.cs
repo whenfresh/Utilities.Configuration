@@ -1,4 +1,4 @@
-﻿namespace WhenFresh.Utilities.Configuration.Collections;
+﻿namespace WhenFresh.Utilities.Collections;
 
 using System.Xml.Serialization;
 using WhenFresh.Utilities.Core.Collections.Generic;

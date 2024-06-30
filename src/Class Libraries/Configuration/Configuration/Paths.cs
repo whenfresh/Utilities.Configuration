@@ -3,7 +3,7 @@
 using System.Xml;
 using System.Xml.Schema;
 using System.Xml.Serialization;
-using WhenFresh.Utilities.Configuration.Collections;
+using WhenFresh.Utilities.Collections;
 using WhenFresh.Utilities.Core.Xml;
 
 [XmlRoot("paths")]

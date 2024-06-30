@@ -5,8 +5,8 @@ using System.Configuration;
 using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
 using System.Reflection;
-using WhenFresh.Utilities.Configuration.Diagnostics;
 using WhenFresh.Utilities.Core;
+using WhenFresh.Utilities.Diagnostics;
 
 public static class Config
 {

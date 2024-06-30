@@ -1,6 +1,4 @@
-﻿namespace WhenFresh.Utilities.Configuration.Facts.Collections;
-
-using WhenFresh.Utilities.Configuration.Collections;
+﻿namespace WhenFresh.Utilities.Collections;
 
 public sealed class PathItemFacts
 {

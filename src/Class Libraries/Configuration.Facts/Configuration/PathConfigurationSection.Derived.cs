@@ -1,4 +1,4 @@
-﻿namespace WhenFresh.Utilities.Configuration.Facts;
+﻿namespace WhenFresh.Utilities.Configuration;
 
 public class DerivedPathConfigurationSection : PathConfigurationSection
 {

@@ -1,6 +1,6 @@
-﻿namespace WhenFresh.Utilities.Configuration.Facts.Configuration;
+﻿namespace WhenFresh.Utilities.Configuration;
 
-using WhenFresh.Utilities.Configuration.Collections;
+using WhenFresh.Utilities.Collections;
 
 public sealed class PathsFacts
 {

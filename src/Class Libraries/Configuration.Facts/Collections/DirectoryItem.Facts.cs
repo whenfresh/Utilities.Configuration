@@ -1,6 +1,5 @@
-﻿namespace WhenFresh.Utilities.Configuration.Facts.Collections;
+﻿namespace WhenFresh.Utilities.Collections;
 
-using WhenFresh.Utilities.Configuration.Collections;
 using WhenFresh.Utilities.Core.IO;
 
 public sealed class DirectoryItemFacts

@@ -3,7 +3,7 @@
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Globalization;
-using WhenFresh.Utilities.Configuration.Diagnostics;
+using WhenFresh.Utilities.Diagnostics;
 
 public sealed class ConfigurationConverter<T> : TypeConverter
 {

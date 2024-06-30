@@ -2,7 +2,7 @@
 
 using System.Configuration;
 using System.Diagnostics;
-using WhenFresh.Utilities.Configuration.Diagnostics;
+using WhenFresh.Utilities.Diagnostics;
 
 public sealed class NameValueConfigurationElement<T> : ConfigurationElement
 {

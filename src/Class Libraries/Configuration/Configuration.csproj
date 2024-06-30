@@ -13,7 +13,4 @@
     <ItemGroup>
         <Reference Include="Microsoft.CSharp"/>
     </ItemGroup>
-    <ItemGroup>
-      <Folder Include="Configuration\" />
-    </ItemGroup>
 </Project>
